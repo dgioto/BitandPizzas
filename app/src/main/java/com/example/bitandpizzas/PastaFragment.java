@@ -9,16 +9,16 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
 //Используем ListFragment для вывода списка видов пиццы
-public class PizzaFragment extends ListFragment {
+public class PastaFragment extends ListFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         //ArrayAdapter заполняет компонент ListView фрагмента ListFragment названиями видов пиццы
         ArrayAdapter<String > adapter = new ArrayAdapter<>(
-          inflater.getContext(),
-          android.R.layout.simple_list_item_1,
-          getResources().getStringArray(R.array.pizzas));
+                inflater.getContext(),
+                android.R.layout.simple_list_item_1,
+                getResources().getStringArray(R.array.pasta));
 
         return super.onCreateView(inflater, container, savedInstanceState);
     }
