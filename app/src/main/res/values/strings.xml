@@ -5,4 +5,9 @@
     <string name="action_share">Share</string>
 
     <string name="title_top">Top fragment</string>
+
+    <string-array name="pizzas">
+        <item>Diavol</item>
+        <item>Funghi</item>
+    </string-array>
 </resources>
