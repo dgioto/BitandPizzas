@@ -16,4 +16,8 @@
         <item>FLasagne</item>
     </string-array>
 
+    <string-array name="stores">
+        <item>Cambrige</item>
+        <item>Sebastopol</item>
+    </string-array>
 </resources>
