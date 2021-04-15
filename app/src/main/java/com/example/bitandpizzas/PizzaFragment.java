@@ -19,7 +19,7 @@ public class PizzaFragment extends ListFragment {
           inflater.getContext(),
           android.R.layout.simple_list_item_1,
           getResources().getStringArray(R.array.pizzas));
-
+        setListAdapter(adapter);
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 }

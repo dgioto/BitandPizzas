@@ -3,6 +3,8 @@ package com.example.bitandpizzas;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -36,6 +38,10 @@ public class MainActivity extends AppCompatActivity {
         ViewPager pager = (ViewPager) findViewById(R.id.pager);
         //Написанный ранее код FragmentPagerAdapter присоединяется к ViewPager
         pager.setAdapter(pagerAdapter);
+
+        //Связывание ViewPager с TabLayout
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(pager);
     }
 
     //Добавляем меню на панель приложения
@@ -59,9 +65,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //Обработка выбора элементов действий
-
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.action_create_order:
                 Intent intent = new Intent(this, OrderActivity.class);
@@ -81,8 +86,8 @@ public class MainActivity extends AppCompatActivity {
 
         //необходим для указания какой фрагмент далжен выводиться на каждой странице
         @Override
-        public Fragment getItem(int i) {
-            switch (i){
+        public Fragment getItem(int position) {
+            switch (position){
                 case  0:
                     return  new TopFragment();
                 case  1:
@@ -99,6 +104,23 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public int getCount() {
             return 4;
+        }
+
+        //добавляем текстна вкладки
+        @Override
+        public CharSequence getPageTitle(int position) {
+            switch (position){
+                //добавляем строковые ресурсы для вкладок
+                case 0:
+                    return getResources().getText(R.string.home_tab);
+                case 1:
+                    return getResources().getText(R.string.pizza_tab);
+                case 2:
+                    return getResources().getText(R.string.pasta_tab);
+                case 3:
+                    return getResources().getText(R.string.store_tab);
+            }
+            return null;
         }
     }
 }
