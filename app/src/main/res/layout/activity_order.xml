@@ -69,6 +69,7 @@
         android:onClick="onClickDone"
         android:src="@drawable/check_circle_white"
         android:tint="@color/colorPrimaryDark"
+        app:backgroundTint="@color/colorPrimaryDark"
         app:backgroundTintMode="add"
         app:maxImageSize="55dp" />
 
