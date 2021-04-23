@@ -3,23 +3,47 @@ package com.example.bitandpizzas;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
-//Используем ListFragment для вывода списка видов пиццы
-public class PizzaFragment extends ListFragment {
+//Используем Fragment вместо ListFragment для вывода списка пицц
+public class PizzaFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        //ArrayAdapter заполняет компонент ListView фрагмента ListFragment названиями видов пиццы
-        ArrayAdapter<String > adapter = new ArrayAdapter<>(
-          inflater.getContext(),
-          android.R.layout.simple_list_item_1,
-          getResources().getStringArray(R.array.pizzas));
-        setListAdapter(adapter);
-        return super.onCreateView(inflater, container, savedInstanceState);
+//        //ArrayAdapter заполняет компонент ListView фрагмента ListFragment названиями видов пиццы
+//        ArrayAdapter<String > adapter = new ArrayAdapter<>(
+//          inflater.getContext(),
+//          android.R.layout.simple_list_item_1,
+//          getResources().getStringArray(R.array.pizzas));
+//        setListAdapter(adapter);
+//        return super.onCreateView(inflater, container, savedInstanceState);
+
+
+        RecyclerView pizzaRecycle = (RecyclerView) inflater.inflate(
+                R.layout.fragment_pizza, container, false);
+        //названия видов пицц добавляются в массив строк
+        String[] pizzaNames = new String[Pizza.pizzas.length];
+        for (int i=0; i < pizzaNames.length; i++){
+            pizzaNames[i] = Pizza.pizzas[i].getName();
+        }
+        //изображения добавляются в массив элементами int
+        int[] pizzaImages = new int[Pizza.pizzas.length];
+        for (int i = 0; i < pizzaImages.length; i++){
+            pizzaImages[i] = Pizza.pizzas[i].getImageResourceId();
+        }
+        //массивы передаются адаптеру
+        CaptionedImagesAdapter adapter = new CaptionedImagesAdapter(pizzaNames, pizzaImages);
+        pizzaRecycle.setAdapter(adapter);
+        //используем для отображения карточек в виде таблицы из двух столбцов
+        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
+        pizzaRecycle.setLayoutManager(layoutManager);
+
+        return  pizzaRecycle;
     }
 }
