@@ -16,6 +16,18 @@ public class CaptionedImagesAdapter extends
     private String[] captions;
     private int[] imageIds;
 
+    public static class ViewHolder extends RecyclerView.ViewHolder{
+
+        private CardView cardView;
+
+        //В компоненте RecyclerView должны отображаться карточки, поэтому мы указываем,
+        // что ViewHolder содержит представления CardView
+        public ViewHolder(CardView v) {
+            super(v);
+            cardView = v;
+        }
+    }
+
     public CaptionedImagesAdapter(String[] captions, int[] imageIds) {
         this.captions = captions;
         this.imageIds = imageIds;
@@ -40,26 +52,13 @@ public class CaptionedImagesAdapter extends
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         CardView cardView = holder.cardView;
-        ImageView imageView = (ImageView) cardView.findViewById(R.id.info_image);
+        ImageView imageView = cardView.findViewById(R.id.info_image);
         //Изображение выводится в графическом представлении ImageView
-        Drawable drawable = ContextCompat
-                .getDrawable(cardView.getContext(), imageIds[position]);
+        Drawable drawable = ContextCompat.getDrawable(cardView.getContext(), imageIds[position]);
         imageView.setImageDrawable(drawable);
         imageView.setContentDescription(captions[position]);
         TextView textView = (TextView) cardView.findViewById(R.id.info_text);
         //Название выводится в графическом предствалении ImageView
         textView.setText(captions[position]);
-    }
-
-    public static class ViewHolder extends RecyclerView.ViewHolder{
-
-        private CardView cardView;
-
-        //В компоненте RecyclerView должны отображаться карточки, поэтому мы указываем,
-        // что ViewHolder содержит представления CardView
-        public ViewHolder(CardView v) {
-            super(v);
-            cardView = v;
-        }
     }
 }
