@@ -24,7 +24,7 @@ public class PizzaFragment extends Fragment {
 //        setListAdapter(adapter);
 //        return super.onCreateView(inflater, container, savedInstanceState);
 
-
+        //создае RecyclerView
         RecyclerView pizzaRecycle = (RecyclerView) inflater.inflate(
                 R.layout.fragment_pizza, container, false);
         //названия видов пицц добавляются в массив строк
