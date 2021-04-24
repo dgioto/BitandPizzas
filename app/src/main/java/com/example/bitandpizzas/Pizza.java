@@ -6,7 +6,7 @@ public class Pizza {
 
     public static final Pizza[] pizzas = {
             new Pizza("Diavolo", R.drawable.diavolo),
-            new Pizza("Diavolo", R.drawable.funghi)
+            new Pizza("Funghi", R.drawable.funghi)
     };
 
     public Pizza(String name, int imageResourceId) {
