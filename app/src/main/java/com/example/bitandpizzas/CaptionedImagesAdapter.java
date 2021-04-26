@@ -1,10 +1,13 @@
 package com.example.bitandpizzas;
 
+import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
+import android.net.sip.SipSession;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -15,6 +18,11 @@ public class CaptionedImagesAdapter extends
 
     private String[] captions;
     private int[] imageIds;
+    private Listener listener;
+
+    interface Listener {
+        void onClick(int position);
+    }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
 
@@ -39,6 +47,10 @@ public class CaptionedImagesAdapter extends
         return captions.length;
     }
 
+    public void setListener(Listener listener){
+        this.listener = listener;
+    }
+
     //вызывается тогда, когда RecyclerView потребуется создать ViewHolder
     @Override
     public CaptionedImagesAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -50,7 +62,7 @@ public class CaptionedImagesAdapter extends
 
     //заполняем карточки данными
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, @SuppressLint("RecyclerView") final int position) {
         CardView cardView = holder.cardView;
         ImageView imageView = cardView.findViewById(R.id.info_image);
         //Изображение выводится в графическом представлении ImageView
@@ -60,5 +72,16 @@ public class CaptionedImagesAdapter extends
         TextView textView = (TextView) cardView.findViewById(R.id.info_text);
         //Название выводится в графическом предствалении ImageView
         textView.setText(captions[position]);
+
+        //интерфейс добавляется к CardView
+        cardView.setOnClickListener(new View.OnClickListener() {
+            //при щелчке на CardView візвать метод onClick() интерфейса Listener
+            @Override
+            public void onClick(View v) {
+                if (listener != null){
+                    listener.onClick(position);
+                }
+            }
+        });
     }
 }

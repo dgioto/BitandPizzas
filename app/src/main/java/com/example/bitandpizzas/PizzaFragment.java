@@ -1,5 +1,6 @@
 package com.example.bitandpizzas;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
@@ -43,6 +44,20 @@ public class PizzaFragment extends Fragment {
         //используем для отображения карточек в виде таблицы из двух столбцов
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
         pizzaRecycle.setLayoutManager(layoutManager);
+
+        //реализация интерфейса Listener из CaptionImagesAdapter, так что бы при щелчке на карточу
+        // в RecyclerView будет запускаться PizzaDetailActivity
+        adapter.setListener(new CaptionedImagesAdapter.Listener() {
+            @Override
+            public void onClick(int position) {
+                Intent intent = new Intent(getActivity(), PizzaDetailActivity.class);
+                intent.putExtra(PizzaDetailActivity.EXTRA_PIZZA_ID, position);
+                //реализация метода onClick() интерфейса Listener запускает
+                // активность PizzaDetailActivity, передавая ей идентификатор пиццы,
+                // выбранной пользователем
+                getActivity().startActivity(intent);
+            }
+        });
 
         return  pizzaRecycle;
     }
